@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Tweet - Twitter</title>
+    {% load static %}
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+  </head>
+  <body>
+    <nav>
+      <div class="logo">
+        <img src="{% static 'images/logo.png' %}" alt="logo" />
+        <h1>Twitter</h1>
+      </div>
+      <div>
+        <ul>
+          <li><a href="{% url 'tweets' %}">All Tweets</a></li>
+          <li>
+            <a href="{% url 'profile' user_id=current_user %}">My Profile</a>
+          </li>
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="form-main-div">
+      <div class="form-sub-main-div">
+        <p class="main-p">Edit Tweet</p>
+        <form method="POST" action="">
+          {% csrf_token %}
+          <label for="content">Content: </label>
+          <br />
+          <textarea
+            id="content"
+            name="content"
+            rows="8"
+            cols="40"
+            placeholder="What's in your mind?"
+          >{{ content }}</textarea>
+          <br />
+          <label for="hashtags">Hastags: </label>
+          <br />
+          <textarea
+            id="hashtags"
+            name="hashtags"
+            rows="3"
+            cols="40"
+            placeholder="#django #python #umt"
+          >{{ hashtags }}</textarea>
+          <br />
+          <button type="submit">Edit</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{tweet.content}}</title>
+    {% load static %}
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+  </head>
+  <body>
+    <nav>
+      <div class="logo">
+        <img src="{% static 'images/logo.png' %}" alt="logo" />
+        <h1>Twitter</h1>
+      </div>
+      <div>
+        <ul>
+          <li><a href="{% url 'tweets' %}">All Tweets</a></li>
+          <li><a href="{% url 'post_tweet' %}">Post a Tweet</a></li>
+          <li>
+            <a href="{% url 'profile' user_id=current_user %}">My Profile</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <p class="main-p mb-1rem">Specific Tweet</p>
+    <div class="specific-tweet-div">
+      <div class="tweet-div">
+        <img class="user-profile-img" src="{% static 'images/user.png' %}" alt="user" />
+        <div class="tweet-details-div">
+          <p>
+            <a href="{% url 'profile' user_id=tweet.user.id %}"><span>{{ tweet.user.full_name }}</span>&#x40; {{ tweet.user.username}}</a>
+            {% if own_tweet %}
+              <a class="edit" href="{% url 'edit_tweet' tweet_id=tweet.id %}">Edit</a>
+              <a class="delete" href="{% url 'delete_tweet' tweet_id=tweet.id %}">Delete</a>
+            {% endif %}
+          </p>
+          <p>
+            <a href="{% url 'specific_tweet' tweet_id=tweet.id %}">
+            {{ tweet.content }}
+            </a>
+          </p>
+          <p>{{ tweet.posted_at|date:"M. d, Y h:i A" }}</p>
+          <div class="mb-1rem"></div>
+          <p>Hashtags</p>
+          <div class="hashtags-row">
+            {% for hashtag in hashtags %}
+              <div><p>{{ hashtag }}</p></div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
